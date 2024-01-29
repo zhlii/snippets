@@ -21,3 +21,9 @@ echo \
 sudo apt-get update
 
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+# 非root权限运行docker
+sudo groupadd docker
+sudo usermod -aG docker $USER
+sudo service docker restart
+newgrp - docker
