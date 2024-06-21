@@ -21,8 +21,8 @@ latest_tag=$(git describe --tags --abbrev=0 2>/dev/null)
 if [ -z "$latest_tag" ]; then
     new_tag="0.1"
 else
-    echo "当前版本号：${latest_tag}\n请选择一个操作："
-    options=("版本号+1" "小版本号+1" "大版本号+1" "退出")
+    echo "当前版本号：${latest_tag}。请选择一个操作："
+    options=("版本号+1" "增加小版本号" "去除小版本号，大版本号+1" "退出")
 
     select opt in "${options[@]}"
     do
@@ -31,17 +31,17 @@ else
                 new_tag=$(version_add "$latest_tag")
                 break                
                 ;;
-            "小版本号+1")
+            "增加小版本号")
                 new_tag="${latest_tag}.1"
                 break
                 ;;
-            "大版本号+1")
+            "去除小版本号，大版本号+1")
                 major_version=$(echo "$latest_tag" | sed 's/\.[0-9]*$//')              
                 new_tag=$(version_add "$major_version")
                 break
                 ;;
             "退出")
-                echo "退出程序"
+                echo "退出"
                 exit
                 ;;
             *) echo "无效的选项 $REPLY";;
